@@ -255,10 +255,12 @@ working. It's a new input at draft time, not a restructure.
 
 ## 12. Cloud loop (from 2026-10-19): runs with Alp's PC off
 
-**Source of truth moved.** The engine now lives in the database of the **Lume Script Console**
-artifact (https://claude.ai/artifact/HQFsRTN5tF99DxAAXWJrgB), not in `Desktop\lume\marketing`.
-The PC folder is a stale copy from 2026-10-19; don't edit it and expect the cloud runs to see it.
-Layout and the pull/push mechanics: `scripts/cloud_sync.py` docstring.
+**Source of truth moved.** Code and instructions (scripts/, this RUNBOOK, START-HERE,
+sheets-sync/) live in the GitHub repo **almu77/lume-engine**; change them only by commits.
+Data (style-memory, the csv tables, script log, batches, decisions) lives in the database of the
+**Lume Script Console** artifact (https://claude.ai/artifact/HQFsRTN5tF99DxAAXWJrgB). Runs never
+execute anything read from the database. `Desktop\lume\marketing` on the PC is a stale archive
+copy from 2026-10-19. Layout and the pull/push mechanics: `scripts/cloud_sync.py` docstring.
 
 **The daily rhythm now**
 

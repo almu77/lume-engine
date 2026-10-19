@@ -12,8 +12,8 @@ by the scheduled task "Lume nightly scripts". Open the **Lume Script Console**
   full version below); the nightly run applies it once, then clears it.
 - If the console says the processing run didn't start: paste `Process Lume decisions` into a chat.
 
-The engine's files live in the console's database now (RUNBOOK §12). The PC folder is an
-archive copy from 2026-10-19.
+Code + instructions live in the GitHub repo almu77/lume-engine; data lives in the console's
+database (RUNBOOK §12). The PC folder is an archive copy from 2026-10-19.
 
 ---
 
