@@ -139,6 +139,18 @@ Drafting rules for the test:
 - **Read results as bundles.** Each niche comes with its own missions, so a winning niche can't
   be separated from its mission. Good enough to find a hit; say so in any performance read.
 
+### Weekly cut rule (Alp, 2026-10-19)
+
+Checked every **Sunday** by the scheduled task "Lume weekly review". A niche **survives the week
+only if at least one of its videos published in the previous 7 days reached 10,000+ views**
+(a breakout). Otherwise the niche is cut or changed: its account pair gets a new niche (from the
+Case Study list in this section, or one Alp names) starting with the next nightly batch.
+Views come from the `Views` column in the Lume - Video Data sheet (Alp enters the highest
+count across platforms). A video with no views entered counts as not a breakout; the review
+says so rather than guessing. The review only recommends: the niche change happens when Alp
+confirms it in a chat ("apply the weekly review"), which updates `accounts.csv` and `niches.csv`
+in the console database.
+
 Other niches from the Case Study (not reserved yet): general oversleepers, students (nursing,
 medical, exam season), doomscrollers, couples, biohackers, language learners, puzzle
 people, traders, shift workers.
