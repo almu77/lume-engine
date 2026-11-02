@@ -309,6 +309,11 @@ copy from 2026-10-19. Layout and the pull/push mechanics: `scripts/cloud_sync.py
 
 Rewrites loop: they reappear in the Review tab; Alp judges them and submits again.
 
+**Video count overrides the task prompt (2026-11-02).** The "Lume nightly scripts" prompt may still
+say "all active accounts, 2 each". That line is outdated: draft **3 per account, the §4b mix of 18**.
+`make_review_json.py` STOPs on 2 each; fix it by drafting the missing test-angle rows, never with
+`--mix-override` (that flag is only for a steer in next_batch_notes that changes the mix on purpose).
+
 **Status values** (`console/status.state`): `drafting`, `ready`, `submitted`, `processing`,
 `redrafted`, `pushed`, `error`. Always set `message` to one plain sentence Alp can act on, and
 `updated_at` to the UTC ISO time. On any failure set `error` and say what's needed.

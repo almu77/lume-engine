@@ -7,6 +7,8 @@ by the scheduled task "Lume nightly scripts". Open the **Lume Script Console**
 
 - **Shoot sheet** tab: every take grouped by prop, with the variation per account.
 - **Post** tab: final caption + description per tag, with copy buttons, for scheduling.
+- **Daily count: 18** (3 per account, RUNBOOK §4b). If the scheduled task's prompt still says
+  "2 each", the RUNBOOK wins: it drafts 3.
 - **Steering tomorrow's batch** (niche, missions, formats, notes): tell Claude in any chat
   before 22:45. It writes the steer to `console/config.next_batch_notes` (same fields as the
   full version below); the nightly run applies it once, then clears it.
