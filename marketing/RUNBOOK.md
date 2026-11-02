@@ -85,8 +85,8 @@ Alp edits this, his version becomes the default (log it in style-memory).
 
 ## 4. Angles, formats, missions
 
-Formats and angles are **only the ones in Alp's Case Study** (style-memory §13). Right now
-**every video is Alarm Ring** (§14); the others are parked until Alp unparks them.
+Formats and angles are **only the ones in Alp's Case Study** (style-memory §13) plus the two Alp
+added on 2026-11-02 (rows 6-7, his own examples in the sheet). Alarm Ring stays the workhorse.
 
 | # | Angle | Format | Status |
 |---|---|---|---|
@@ -95,6 +95,30 @@ Formats and angles are **only the ones in Alp's Case Study** (style-memory §13)
 | 3 | Humor/Absurdity | Pranking Friend: sets a friend's alarm with a brutal mission | parked |
 | 4 | Pain/Annoyance | Alarm Screen Record: wall of alarms, bad outcome, the fix | parked |
 | 5 | Pain/Annoyance | Face Reaction: caption about years of oversleeping, then the demo | parked |
+| 6 | Humor/Absurdity | **Me vs Alarm**: third-party POV in bed, the alarm talks, two snoozes, "snooze detected, playing horrific screams", he scrambles up | **test, 3/day** |
+| 7 | Humor/Absurdity | **Alarm Won't Turn Off**: tongue twister mission, the app roasts him and boosts the alarm, "no no no no" | **test, 3/day** |
+
+### 4b. Daily mix: 18 videos, 3 per account (Alp, 2026-11-02, style-memory §37)
+
+| Accounts (pair) | Alarm Ring (2 each, unchanged §29 mix) | Test angle (1 each) |
+|---|---|---|
+| realtimejake, jakehairlosstips | 1 energy drink · gym + 1 pop quiz · general | one Me vs Alarm, one Alarm Won't Turn Off |
+| realjakemu, jakemuhair | 2 law quiz · law | one Me vs Alarm, one Alarm Won't Turn Off |
+| inthehousejake, jaqedailytips | 1 pushups + 1 squats · general | one Me vs Alarm, one Alarm Won't Turn Off |
+
+- Every pair gets **one of each test angle**, so each angle runs once per pair (3 a day, all three
+  pairs). **Swap them inside the pair every day** (look at yesterday's log): an account that ran
+  Me vs Alarm yesterday runs Alarm Won't Turn Off today.
+- Test angles are **general on every account**, law included (§36): `target_niche` = `general`,
+  no niche words in the caption. angles.csv `niche_free = yes` makes `make_review_json.py` skip
+  the reserved-niche check for them.
+- Me vs Alarm: mission `none`, Alp's voice lines word for word, vary the third-party camera spot,
+  the snooze gesture and the scramble. Alarm Won't Turn Off: mission `tongue twister` (staged in
+  the demo), a different twister per account, the roast line is one of Alp's (style-memory §37).
+- Counts live in data: accounts.csv `unique_videos_daily` (3) and angles.csv `daily_count`
+  (Alarm Ring 12, Me vs Alarm 3, Alarm Won't Turn Off 3). `make_review_json.py` STOPs when the
+  batch doesn't match. A steer that changes the mix on purpose runs it with `--mix-override`.
+- Tags: 3 per account (`next_tags.py --count 3`).
 
 **Captions are fixed per mission** in the proven POV template (§15); descriptions are fixed per
 niche (§16); quiz/rep missions carry a paste-ready demo script (§17).
@@ -159,13 +183,13 @@ people, traders, shift workers.
 
 `accounts.csv`. **All six are `active` (Alp, 2026-10-14):** realtimejake, jakehairlosstips,
 jakemuhair, realjakemu, inthehousejake, jaqedailytips, the same handles as Tough Hair (all Alp
-as "Jake", 3 iPhones, 2 unique videos/day each), being re-warmed for alarm content. The
+as "Jake", 3 iPhones, 3 unique videos/day each from 2026-11-03; 2 before), being re-warmed for alarm content. The
 followers were built on hair-loss content, so expect the first weeks to under-perform while the
 accounts' audience shifts; don't read early numbers as a verdict on a format.
 
 Rules carried from Tough Hair:
-- **One account, one format per batch.** An account's two videos never share a format
-  (enforced). Prefer different missions too (noted).
+- An account's daily videos: 2 Alarm Ring + 1 test angle (§4b, enforced). Prefer different
+  missions on the two Alarm Ring videos (noted).
 - **Read the `status` column**: "all accounts" means `active` ones only.
 - Watch the near-identical handles: `jakemuhair` vs `realjakemu`.
 
@@ -278,7 +302,7 @@ copy from 2026-10-19. Layout and the pull/push mechanics: `scripts/cloud_sync.py
 
 | When (Istanbul) | Who | What |
 |---|---|---|
-| ~22:45 | scheduled task **Lume nightly scripts** | dump db → pull → draft tomorrow's batch (§9 steps 2–3, START-HERE defaults) → shoot sheet → push → status `ready` |
+| ~22:45 | scheduled task **Lume nightly scripts** | dump db → pull → draft tomorrow's batch (§9 steps 2–3, START-HERE defaults, the §4b mix of 18) → shoot sheet → push → status `ready` |
 | ~06:30 | Alp, on the phone | opens the console → Accept / Edit / Rewrite / Kill (reason on every change) → **Submit & process** |
 | on submit | scheduled task **Lume process decisions** (fired by the button) | apply decisions → fold reasons into style-memory → redraft rewrites (status `redrafted`) → push approved rows to the sheet (§9 step 7) → post list → status `pushed` |
 | while scheduling | Alp | console **Post** tab: copy caption + description per tag |
@@ -291,7 +315,8 @@ Rewrites loop: they reappear in the Review tab; Alp judges them and submits agai
 
 **Shoot sheet** (`shoot-sheet.md`, written by the nightly run, shown in the Shoot sheet tab).
 Group every take by physical setup so each prop is set up once, in this order: energy drink,
-water bottle, pushups, squats, spoken quiz (legal). Per group: the props to have ready, then
+pushups, squats, pop quiz (general), spoken quiz (legal), tongue twister (Alarm Won't Turn Off:
+the twister to pick on each phone), Me vs Alarm (second phone on a tripod: where it stands). Per group: the props to have ready, then
 one bullet per take: `**<tag>**` · account · the moment/direction to act (from the script's
 parentheses) · the on-camera variation that keeps paired accounts from looking identical
 (shirt, pillow side, lighting, room corner — vary within each account pair). For the law group,

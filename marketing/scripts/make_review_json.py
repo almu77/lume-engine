@@ -14,9 +14,15 @@ Guards (all ported from Tough Hair, plus the Lume mission checks):
   NOTE  same mission twice on one account in one batch
   NOTE  same format as that account's previous batch
   NOTE  caption (hook) over 15 words                  (style-memory §27, Alp 2026-10-16)
+  STOP  daily mix broken (from 2026-11-03, style-memory §37): an active account without
+        accounts.csv `unique_videos_daily` rows, or a format whose angles.csv `daily_count`
+        doesn't match the batch, or an account pair with two rows of the same test angle.
+        A steer (console-config next_batch_notes) can change the mix: pass --mix-override.
+  (formats with angles.csv `niche_free` = yes skip the reserved-niche check: Me vs Alarm and
+   Alarm Won't Turn Off are general on every account, style-memory §36/§37)
   INFO  mission x format coverage for the batch       (feeds the mission validation test)
 
-Usage:  python3 scripts/make_review_json.py <batch_date>
+Usage:  python3 scripts/make_review_json.py <batch_date> [--mix-override]
 """
 import csv
 import json
@@ -56,6 +62,7 @@ def main():
         return 1
 
     accounts = {a["account"].strip(): a for a in read_csv("accounts.csv")}
+    angles = {str(a.get("angle_no", "")).strip(): a for a in read_csv("angles.csv")}
     missions = {m["mission"].strip().lower(): m for m in read_csv("missions.csv")}
     stops = []
 
@@ -76,7 +83,8 @@ def main():
         # Niche reservation (Alp, 2026-10-14): an account reserved for a niche only posts that
         # niche, with that niche's missions, so a hit builds one consistent audience.
         niche = (a.get("niche") or "").strip().lower()
-        if niche:
+        niche_free = ((angles.get(ang) or {}).get("niche_free") or "").strip().lower() == "yes"
+        if niche and not niche_free:
             row_niche = (r.get("target_niche") or "").strip().lower()
             if row_niche != niche:
                 stops.append(f"{r['row_id']}: {acct} is reserved for the '{niche}' niche, "
@@ -115,6 +123,33 @@ def main():
                     notes.append(f"{acct}: mission {m} on both {mis_seen[m]} and {r['row_id']} "
                                  "(allowed, but the two videos will look alike back-to-back)")
                 mis_seen[m] = r["row_id"]
+
+    # Daily mix (Alp, 2026-11-02: 18 a day, 3 per account; style-memory §37).
+    if "--mix-override" not in sys.argv:
+        active = [k for k, a in accounts.items() if (a.get("status") or "").strip() == "active"]
+        for acct in active:
+            want = (accounts[acct].get("unique_videos_daily") or "").strip()
+            have = len(by_acct.get(acct, []))
+            if want.isdigit() and have != int(want):
+                stops.append(f"{acct}: {have} rows, accounts.csv unique_videos_daily says {want}")
+        fmt_count = Counter(str(r.get("angle_no", "")).strip() for r in rows)
+        for no, a in angles.items():
+            want = (a.get("daily_count") or "").strip()
+            if want.isdigit() and fmt_count.get(no, 0) != int(want):
+                stops.append(f"format {no} ({a.get('format')}): {fmt_count.get(no, 0)} rows, "
+                             f"angles.csv daily_count says {want}")
+        # one of each test angle per account pair (pairs = accounts sharing a device)
+        pairs = {}
+        for acct in active:
+            pairs.setdefault((accounts[acct].get("device") or acct).strip(), []).append(acct)
+        test = {no for no, a in angles.items() if (a.get("niche_free") or "").strip().lower() == "yes"}
+        for dev, accts in pairs.items():
+            seen = Counter(str(r.get("angle_no", "")).strip() for x in accts for r in by_acct.get(x, [])
+                           if str(r.get("angle_no", "")).strip() in test)
+            for no, n in seen.items():
+                if n > 1:
+                    stops.append(f"pair {', '.join(accts)}: format {no} {n} times; give each account "
+                                 "in a pair a different test angle")
 
     if stops:
         print("STOP - fix these in script-log.csv (or accounts.csv / missions.csv) and re-run:")

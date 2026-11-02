@@ -33,8 +33,8 @@ Run Lume scripts.
 ```
 
 I'll read the RUNBOOK, style-memory, angles, missions and accounts, pull live tag numbers from
-`lume-tag-index.csv`, and draft 2 per **active** account: two different formats each, missions
-rotated across the batch.
+`lume-tag-index.csv`, and draft 3 per **active** account (18 a day): 2 Alarm Ring + 1 test angle
+(Me vs Alarm or Alarm Won't Turn Off, swapped inside each pair daily). The mix is RUNBOOK §4b.
 
 ## The full version (when you want to steer)
 
@@ -55,7 +55,7 @@ Notes:
 | **Formats** | `balanced` · numbers `1,2,4` · `dawn` (1,2,3,6: needs a real wake-up) · `anytime` (4,5: shoot whenever) | balanced, weighted to 1 and 2 |
 | **Missions** | `rotate` · specific `math, spoken quiz` · `untested` (only missions with no approved video yet) | rotate |
 | **Niche** | one niche for the whole batch, e.g. `nursing students` | mixed |
-| **Accounts** | `all` · `realtimejake x2, realjakemu x1` | all active, 2 each |
+| **Accounts** | `all` · `realtimejake x2, realjakemu x1` | all active, 3 each (RUNBOOK §4b) |
 | **Skip** | accounts to leave out | none |
 | **Reference** | a tag to write in the style of | none |
 | **Notes** | "shooting alone", "no second phone", "lean meaner" | — |
@@ -68,7 +68,7 @@ Notes:
 |---|---|
 | `process decisions` | after Save in the console and the green banner |
 | `push to sheet` | when the approved rows should go to Lume - Video Data |
-| `tags only. x2 per account` | just the next tags |
+| `tags only. x3 per account` | just the next tags |
 | `redraft <tag>` | one script needs another pass outside the console |
 | `account <handle> is live` | flip a pending account to active (after a rename, give the new handle) |
 
